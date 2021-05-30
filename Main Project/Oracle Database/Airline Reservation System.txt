@@ -1,0 +1,286 @@
+create table MANAGER
+  (   
+   FIRST_NAME varchar2(20) Not Null,
+   MIDDLE_NAME varchar2(20),
+   LAST_NAME varchar2(20) Not Null,
+   
+   GENDER varchar2(20) Not Null,
+   DOB date not null,
+   MOBILE_NO number(20) Unique Not Null,
+   EMAIL varchar2(50) Primary Key Not Null,
+   ADDRESS varchar(50),
+   
+   PASSWORD varchar2(20) Not Null
+  )
+
+
+create table EMPLOYEE
+  (
+   FIRST_NAME varchar2(20) Not Null,
+   MIDDLE_NAME varchar2(20),
+   LAST_NAME varchar2(20) Not Null,
+   
+   GENDER varchar2(20) Not Null,
+   DOB date not null,
+   MOBILE_NO number(20) Unique Not Null,
+   EMAIL varchar2(50) Primary Key Not Null,
+   ADDRESS varchar(50),
+   
+   PASSWORD varchar2(20) Not Null,
+   
+   MANAGER_EMAIL varchar2(50) References MANAGER(EMAIL)
+  )
+
+
+create table CUSTOMER
+  (
+   FIRST_NAME varchar2(20) Not Null,
+   MIDDLE_NAME varchar2(20),
+   LAST_NAME varchar2(20) Not Null,
+   
+   GENDER varchar2(20) Not Null,
+   DOB date not null,
+   MOBILE_NO number(20) Unique Not Null,
+   EMAIL varchar2(50) Primary Key Not Null,
+   ADDRESS varchar(50),
+   
+   PASSWORD varchar2(20) Not Null,
+   
+   BIRTH_PLACE varchar2(20) Not Null,
+   FAVOURITE_CAR varchar2(20) Not Null,
+   FAVOURITE_SPORT varchar2(20) Not Null
+  )
+
+
+create table FLIGHT
+  (
+   FLIGHT_ID number(20) Primary Key Not Null,
+   PLANE_NAME varchar2(20) Not Null,
+   
+   SOURCE varchar2(20) Not Null,
+   DESTINATION varchar2(20) Not Null,
+   DEPARTURE_TIME number(20) Not Null,
+   ARRIVAL_TIME number(20) Not Null,
+   
+   ECONOMY_PRICE number(20) Not Null,
+   BUSINESS_PRICE number(20) Not Null
+  )
+
+
+create table TICKET
+  (
+   TICKET_ID number(20) Primary Key Not Null,
+   FLIGHT_ID number(20) References FLIGHT(FLIGHT_ID) Not Null,
+   DATE_OF_JOURNEY date,
+   CLASS varchar2(20) Not Null,
+   
+   USER_EMAIL varchar2(50) Not Null,
+   
+   FIRST_NAME varchar2(20) Not Null,
+   MIDDLE_NAME varchar2(20) Not Null,
+   LAST_NAME varchar2(20) Not Null,
+   
+   GENDER varchar2(20) Not Null,
+   AGE number(20) Not Null,
+   MOBILE_NO number(20) Not Null Unique,
+   
+   PRICE number(20) Not Null,
+   
+   STATUS varchar2(20),
+   
+   Constraint UP_FLIGHT Unique (FLIGHT_ID, DATE_OF_JOURNEY, MOBILE_NO)
+  )
+
+
+create table BANK_ACCOUNT
+  (
+   BANK_NAME varchar2(20) Not Null,
+   USER_ID varchar2(20) Not Null,
+   PASSWORD varchar2(20) Not Null,
+   
+   BALANCE number(20) Not Null,
+   
+   Primary Key(BANK_NAME, USER_ID)
+  )
+
+
+
+desc MANAGER;
+desc EMPLOYEE;
+desc CUSTOMER;
+desc FLIGHT;
+desc TICKET;
+desc BANK_ACCOUNT;
+
+
+
+
+
+insert all
+  into MANAGER values('Akshay', 'Rohan', 'Borkar', 'Male', '28-MAR-1992', 9926327655, 'akshayborkar@gmail.com', 'Margao-Goa', 'akshay')
+  into MANAGER values('Vijay', 'Ajay', 'Naik', 'Male', '28-JAN-1991', 9925345655, 'vijaynaik@outlook.com', 'Pernem-Goa', 'vijay')
+  into MANAGER values('Ojas', 'Vijay', 'Naik', 'Male', '21-MAY-1992', 9926123455, 'ojasnaik@gmail.com', 'Ponda-Goa', 'ojas')
+  into MANAGER values('Ishan', 'Akshay', 'Gude', 'Male', '2-AUG-1988', 9345645655, 'ishangude@yahoo.com', 'Panjim-Goa', 'ishan')
+  into MANAGER values('Prajyot', 'Rajendra', 'Naik', 'Male', '3-MAY-1986', 9926654435, 'prajyotnaik@gmail.com', 'Curchorem-Goa', 'prajyot')
+  into MANAGER values('Shalaka', 'Rohan', 'Kerkar', 'Female', '17-SEP-1991', 9926376555, 'shalakakerkar@gmail.com', 'Vasco-Goa', 'shalaka')
+  into MANAGER values('Kaushik', 'Nilesh', 'Naik', 'Male', '21-DEC-1992', 9344522567, 'kaushiknaik@yahoo.com', 'Ponda-Goa', 'kaushik')
+  into MANAGER values('Uditya', 'Uday', 'Laad', 'Male', '8-AUG-1987', 9923453554, 'udityalaad@outlook.com', 'Curchorem-Goa', 'uditya')
+  into MANAGER values('Ankita', 'Paresh', 'Zambaulikar', 'Female', '5-OCT-1988', 9389212567, 'ankitazambaulikar@yahoo.com', 'Zambaulim-Goa', 'ankita')
+  into MANAGER values('Krishna', 'Anil', 'Mayekar', 'Male', '6-JUN-1986', 9726352554, 'krishnamayekar@outlook.com', 'Bicholim-Goa', 'krishna')
+select * from dual;
+
+
+insert all
+  into EMPLOYEE values('Sara', 'Sunil', 'Mane', 'Female', '2-JUN-1991', 9796327643, 'saramane@gmail.com', 'Panjim-Goa', 'sara', 'ankitazambaulikar@yahoo.com')
+  into EMPLOYEE values('Rohan', 'Ajay', 'Naik', 'Male', '13-JAN-1975', 9725345232, 'rohannaik@yahoo.com', 'Mapusa-Goa', 'rohan', 'ishangude@yahoo.com')
+  into EMPLOYEE values('Rudra', 'Rajdeep', 'Gosavi', 'Male', '28-SEP-1993', 9926327612, 'rudragosavi@yahoo.com', 'Ponda-Goa', 'rudra', 'ishangude@yahoo.com')
+  into EMPLOYEE values('Aniket', 'Anil', 'Adpaikar', 'Male', '18-AUG-1981', 9789564564, 'aniketadpaikar@yahoo.com', 'Curchorem-Goa', 'aniket', 'ankitazambaulikar@yahoo.com')
+  into EMPLOYEE values('Chetan', 'Prajyot', 'Naik', 'Male', '6-MAY-1979', 9921234435, 'chetannaik@gmail.com', 'Pernem-Goa', 'chetan', 'shalakakerkar@gmail.com')
+  into EMPLOYEE values('Vaibhavi', 'Anil', 'Naik', 'Female', '4-DEC-1984', 9125427655, 'vaibhavinaik@yahoo.com', 'Bicholim-Goa', 'vaibhavi', 'udityalaad@outlook.com')
+  into EMPLOYEE values('Omkar', 'Nilesh', 'Madgaonkar', 'Male', '26-APR-1992', 9893745227, 'omkarmadgaonkar@yahoo.com', 'Ponda-Goa', 'omkar', 'ankitazambaulikar@yahoo.com')
+  into EMPLOYEE values('Subodh', 'Ishan', 'Arolkar', 'Male', '14-AUG-1987', 9921234554, 'subodharolkar@outlook.com', 'Vasco-Goa', 'subodh', 'shalakakerkar@gmail.com')
+  into EMPLOYEE values('Savita', 'Dashrath', 'Naik', 'Female', '4-MAR-1983', 9214322567, 'savitanaik@outlook.com', 'Ponda-Goa', 'savita', 'udityalaad@outlook.com')
+  into EMPLOYEE values('Ashok', 'Akshay', 'Lotlikar', 'Male', '15-FEB-1982', 9752553124, 'ashoklotlikar@gmail.com', 'Margao-Goa', 'ashok', 'ishangude@yahoo.com')
+select * from dual;
+
+
+insert all
+  into CUSTOMER values('Paresh', 'Pranal', 'Zambaulikar', 'Male', '18-MAR-1985', 9389213136, 'pareshzambaulikar@outlook.com', 'Zambaulim-Goa', 'paresh', 'Margao', 'Audi', 'Cricket')
+  into CUSTOMER values('Chinmay', 'Vinayak', 'Shet', 'Male', '17-JAN-1981', 9134411154, 'chinmayshet@yahoo.com', 'Bicholim-Goa', 'chinmay', 'Bicholim', 'McClaren', 'Football')
+  into CUSTOMER values('Akshay', 'Rohan', 'Borkar', 'Male', '28-JAN-1976', 9967777655, 'akshayborkar@yahoo.com', 'Margao-Goa', 'akshay', 'Margao', 'Mercedes', 'Football')
+  into CUSTOMER values('Rohan', 'Akash', 'Gosavi', 'Male', '17-SEP-1992', 9944444455, 'rohangosavi@gmail.com', 'Panjim-Goa', 'rohan', 'Panjim', 'Ferrari', 'Hockey')
+  into CUSTOMER values('Durva', 'Vishal', 'Naik', 'Female', '25-DEC-1977', 9341111512, 'durvanaik@yahoo.com', 'Ponda-Goa', 'durva', 'Margao', 'Bentely', 'Tennis')
+  into CUSTOMER values('Keval', 'Suraj', 'Borkar', 'Male', '8-AUG-1987', 9923321271, 'kevalborkar@outlook.com', 'Curchorem-Goa', 'keval', 'Panjim', 'Mercedes', 'Cricket')
+  into CUSTOMER values('Ashwaraj', 'Ajay', 'Madgaonkar', 'Male', '12-FEB-1998', 9925347823, 'ashwarajmadgaonkar@outlook.com', 'Pernem-Goa', 'ashwaraj', 'Ponda', 'Lamborghini', 'Cricket')
+  into CUSTOMER values('Pankaj', 'Anay', 'Naik', 'Male', '14-MAY-1982', 9926323311, 'pankajnaik@gmail.com', 'Panjim-Goa', 'pankaj', 'Panjim', 'Audi', 'Football')
+  into CUSTOMER values('Shrinath', 'Kaushik', 'Arolkar', 'Male', '2-MAR-1996', 9225643398, 'shrinatharolkar@outlook.com', 'Verna-Goa', 'shrinath', 'Margao', 'Lamborghini', 'Cricket')
+  into CUSTOMER values('Sarthi', 'Akash', 'Lotlikar', 'Female', '7-MAR-1969', 9898954321, 'ankitazambualikar@gmail.com', 'Shiroda-Goa', 'sarthi', 'Ponda', 'McClaren', 'Badminton')
+select * from dual;
+
+
+insert all
+  into FLIGHT values('1001', 'Kingfisher', 'Delhi', 'Goa', 7, 10, 20000, 30000)
+  into FLIGHT values('1002', 'AirIndia', 'Delhi', 'Goa', 11, 14, 15000, 25000)
+  into FLIGHT values('1003', 'Indigo', 'Delhi', 'Goa', 15, 18, 10000, 17000)
+  into FLIGHT values('1004', 'Spicejet', 'Delhi', 'Goa', 17, 21, 7000, 12000)
+  
+  into FLIGHT values('1005', 'Kingfisher', 'Delhi', 'Kolkata', 7, 10, 20000, 30000)
+  into FLIGHT values('1006', 'AirIndia', 'Delhi', 'Kolkata', 11, 14, 15000, 25000)
+  into FLIGHT values('1007', 'Indigo', 'Delhi', 'Kolkata', 15, 18, 10000, 17000)
+  into FLIGHT values('1008', 'Spicejet', 'Delhi', 'Kolkata', 17, 21, 7000, 12000)
+  
+  into FLIGHT values('1009', 'Kingfisher', 'Delhi', 'Mumbai', 7, 10, 20000, 30000)
+  into FLIGHT values('1010', 'AirIndia', 'Delhi', 'Mumbai', 11, 14, 15000, 25000)
+  into FLIGHT values('1011', 'Indigo', 'Delhi', 'Mumbai', 15, 18, 10000, 17000)
+  into FLIGHT values('1012', 'Spicejet', 'Delhi', 'Mumbai', 17, 21, 7000, 12000)
+select * from dual;
+
+insert all
+  into FLIGHT values('1013', 'Kingfisher', 'Goa', 'Delhi', 7, 10, 20000, 30000)
+  into FLIGHT values('1014', 'AirIndia', 'Goa', 'Delhi', 11, 14, 15000, 25000)
+  into FLIGHT values('1015', 'Indigo', 'Goa', 'Delhi', 15, 18, 10000, 17000)
+  into FLIGHT values('1016', 'Spicejet', 'Goa', 'Delhi', 17, 21, 7000, 12000)
+  
+  into FLIGHT values('1017', 'Kingfisher', 'Goa', 'Kolkata', 7, 10, 20000, 30000)
+  into FLIGHT values('1018', 'AirIndia', 'Goa', 'Kolkata', 11, 14, 15000, 25000)
+  into FLIGHT values('1019', 'Indigo', 'Goa', 'Kolkata', 15, 18, 10000, 17000)
+  into FLIGHT values('1020', 'Spicejet', 'Goa', 'Kolkata', 17, 21, 7000, 12000)
+  
+  into FLIGHT values('1021', 'Kingfisher', 'Goa', 'Mumbai', 8, 9, 10000, 18000)
+  into FLIGHT values('1022', 'AirIndia', 'Goa', 'Mumbai', 11, 12, 7000, 12000)
+  into FLIGHT values('1023', 'Indigo', 'Goa', 'Mumbai', 15, 16, 5000, 9000)
+  into FLIGHT values('1024', 'Spicejet', 'Goa', 'Mumbai', 19, 20, 4000, 7000)
+select * from dual;
+
+insert all
+  into FLIGHT values('1025', 'Kingfisher', 'Kolkata', 'Delhi', 7, 10, 20000, 30000)
+  into FLIGHT values('1026', 'AirIndia', 'Kolkata', 'Delhi', 11, 14, 15000, 25000)
+  into FLIGHT values('1027', 'Indigo', 'Kolkata', 'Delhi', 15, 18, 10000, 17000)
+  into FLIGHT values('1028', 'Spicejet', 'Kolkata', 'Delhi', 17, 21, 7000, 12000)
+  
+  into FLIGHT values('1029', 'Kingfisher', 'Kolkata', 'Goa', 7, 10, 20000, 30000)
+  into FLIGHT values('1030', 'AirIndia', 'Kolkata', 'Goa', 11, 14, 15000, 25000)
+  into FLIGHT values('1031', 'Indigo', 'Kolkata', 'Goa', 15, 18, 10000, 17000)
+  into FLIGHT values('1032', 'Spicejet', 'Kolkata', 'Goa', 17, 21, 7000, 12000)
+  
+  into FLIGHT values('1033', 'Kingfisher', 'Kolkata', 'Mumbai', 7, 10, 20000, 30000)
+  into FLIGHT values('1034', 'AirIndia', 'Kolkata', 'Mumbai', 11, 14, 15000, 25000)
+  into FLIGHT values('1035', 'Indigo', 'Kolkata', 'Mumbai', 15, 18, 10000, 17000)
+  into FLIGHT values('1036', 'Spicejet', 'Kolkata', 'Mumbai', 17, 21, 7000, 12000)
+select * from dual;
+
+insert all
+  into FLIGHT values('1037', 'Kingfisher', 'Mumbai', 'Delhi', 7, 10, 20000, 30000)
+  into FLIGHT values('1038', 'AirIndia', 'Mumbai', 'Delhi', 11, 14, 15000, 25000)
+  into FLIGHT values('1039', 'Indigo', 'Mumbai', 'Delhi', 15, 18, 10000, 17000)
+  into FLIGHT values('1040', 'Spicejet', 'Mumbai', 'Delhi', 17, 21, 7000, 12000)
+  
+  into FLIGHT values('1041', 'Kingfisher', 'Mumbai', 'Goa', 8, 9, 10000, 18000)
+  into FLIGHT values('1042', 'AirIndia', 'Mumbai', 'Goa', 11, 12, 7000, 12000)
+  into FLIGHT values('1043', 'Indigo', 'Mumbai', 'Goa', 15, 16, 5000, 9000)
+  into FLIGHT values('1044', 'Spicejet', 'Mumbai', 'Goa', 19, 20, 4000, 7000)
+  
+  into FLIGHT values('1045', 'Kingfisher', 'Mumbai', 'Kolkata', 7, 10, 20000, 30000)
+  into FLIGHT values('1046', 'AirIndia', 'Mumbai', 'Kolkata', 11, 14, 15000, 25000)
+  into FLIGHT values('1047', 'Indigo', 'Mumbai', 'Kolkata', 15, 18, 10000, 17000)
+  into FLIGHT values('1048', 'Spicejet', 'Mumbai', 'Kolkata', 17, 21, 7000, 12000)
+select * from dual;
+
+
+insert all
+  into TICKET values('100001', '1045', '17-MAR-2018', 'Economy', 'kevalborkar@outlook.com', 'Prajyot', 'Pranal', 'Naik', 'Male', 28, 9872645123, 20000, 'Booked')
+  into TICKET values('100002', '1045', '17-MAR-2018', 'Economy', 'kevalborkar@outlook.com', 'Akshay', 'Anand', 'Madgaonkar', 'Male', 10, 9809876521, 15000, 'Booked')
+  into TICKET values('100003', '1012', '23-DEC-2017', 'Economy', 'ishangude@yahoo.com', 'Ishan', 'Akshay', 'Gude', 'Male', 29, 9345645655, 7000, 'Booked')
+  into TICKET values('100004', '1022', '4-JAN-2018', 'Business', 'chetannaik@gmail.com', 'Akash', 'Prajyot', 'Naik', 'Male', 19, 9811234589, 12000, 'Booked')
+  into TICKET values('100005', '1027', '25-FEB-2018', 'Economy', 'sarthilotlikar@gmail.com', 'Sunil', 'Akshay', 'Gude', 'Male', 42, 9871234588, 10000, 'Booked')
+select * from dual;
+
+insert all
+  into TICKET values('100006', '1002', '2-MAY-2018', 'Business', 'kevalborkar@outlook.com', 'Keval', 'Suraj', 'Borkar', 'Male', 30, 9923321271, 25000, 'Booked')
+  into TICKET values('100007', '1026', '8-MAR-2018', 'Economy', 'rohangosavi@gmail.com', 'Rohan', 'Akash', 'Gosavi', 'Male', 25, 9944444455, 15000, 'Booked')
+  into TICKET values('100008', '1005', '14-APR-2018', 'Business', 'savitanaik@outlook.com', 'Savita', 'Dashrath', 'Naik', 'Female', 34, 9214322567, 30000, 'Booked')
+  into TICKET values('100009', '1039', '8-DEC-2017', 'Business', 'akshayborkar@yahoo.com', 'Krishna', 'Ajay', 'Shet', 'Male', 43, 9844446544, 17000, 'Booked')
+  into TICKET values('100010', '1032', '14-NOV-2017', 'Economy', 'ankitazambalikar@yahoo.com', 'Shubham', 'Namdev', 'Naik', 'Female', 29, 9811234000, 7000, 'Booked')
+select * from dual;
+
+
+insert all
+  into BANK_ACCOUNT values('AXIS BANK', '10001', 'axis10001', 50000)
+  into BANK_ACCOUNT values('AXIS BANK', '10002', 'axis10002', 70000)
+  into BANK_ACCOUNT values('AXIS BANK', '10003', 'axis10003', 20000)
+  into BANK_ACCOUNT values('AXIS BANK', '10004', 'axis10004', 40000)
+  into BANK_ACCOUNT values('AXIS BANK', '10005', 'axis10005', 100000)
+  
+  into BANK_ACCOUNT values('BANK OF INDIA', '10001', 'boi10001', 150000)
+  into BANK_ACCOUNT values('BANK OF INDIA', '10002', 'boi10002', 36000)
+  into BANK_ACCOUNT values('BANK OF INDIA', '10003', 'boi10003', 76000)
+  into BANK_ACCOUNT values('BANK OF INDIA', '10004', 'boi10004', 25000)
+  into BANK_ACCOUNT values('BANK OF INDIA', '10005', 'boi10005', 200000)
+  
+  into BANK_ACCOUNT values('HDFC BANK', '10001', 'hdfc10001', 250000)
+  into BANK_ACCOUNT values('HDFC BANK', '10002', 'hdfc10002', 160000)
+  into BANK_ACCOUNT values('HDFC BANK', '10003', 'hdfc10003', 38000)
+  into BANK_ACCOUNT values('HDFC BANK', '10004', 'hdfc10004', 7000)
+  into BANK_ACCOUNT values('HDFC BANK', '10005', 'hdfc10005', 70000)
+  
+  into BANK_ACCOUNT values('ICICI BANK', '10001', 'icici10001', 90000)
+  into BANK_ACCOUNT values('ICICI BANK', '10002', 'icici10002', 60000)
+  into BANK_ACCOUNT values('ICICI BANK', '10003', 'icici10003', 20000)
+  into BANK_ACCOUNT values('ICICI BANK', '10004', 'icici10004', 24000)
+  into BANK_ACCOUNT values('ICICI BANK', '10005', 'icici10005', 55000)
+  
+  into BANK_ACCOUNT values('STATE BANK OF INDIA', '10001', 'sbi10001', 75000)
+  into BANK_ACCOUNT values('STATE BANK OF INDIA', '10002', 'sbi10002', 15000)
+  into BANK_ACCOUNT values('STATE BANK OF INDIA', '10003', 'sbi10003', 140000)
+  into BANK_ACCOUNT values('STATE BANK OF INDIA', '10004', 'sbi10004', 50000)
+  into BANK_ACCOUNT values('STATE BANK OF INDIA', '10005', 'sbi10005', 55000)
+select * from dual;
+
+
+
+select * from MANAGER;
+select * from EMPLOYEE;
+select * from CUSTOMER;
+select * from FLIGHT;
+select * from TICKET;
+select * from BANK_ACCOUNT;
